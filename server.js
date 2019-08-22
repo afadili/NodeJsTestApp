@@ -1,13 +1,18 @@
-let http = require('http')
+let http = require("http");
 
-let server = http.createServer()
+let server = http.createServer();
 
-server.on('request', (request, response) => {
+let fs = require("fs");
 
+server.on("request", (request, response) => {
+  fs.readFile("index.html", (err, data) => {
+    if (err) throw err;
     response.writeHead(200, {
-        'Content-type' : 'text/html ; charset=utf-8'
-    })
-    response.end('il y a eu une requete')
-})
+      "Content-type": "text/html ; charset=utf-8"
+    });
 
-server.listen(8080)
+    response.end(data);
+  });
+});
+
+server.listen(8080);
